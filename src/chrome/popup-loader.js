@@ -2,7 +2,7 @@ import { loadjscssfile } from '@/utils/util'
 
 function installPopup(v) {
   const script = document.createElement('script')
-  script.src = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/static/js/popup-index.js' : 'https://dy.colrose.cn/static/js/popup-index-' + v + '.js'
+  script.src = process.env.NODE_ENV === 'development' ? './static/js/popup-index.js' : 'https://dy.colrose.cn/static/js/popup-index-' + v + '.js'
   document.documentElement.appendChild(script)
   script.parentNode.removeChild(script)
 }

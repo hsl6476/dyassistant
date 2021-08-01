@@ -5,7 +5,7 @@ import { uploadBoxInfo, uploadSettingInfo } from '@/store/action/extend'
 import { boxdefault, settingdefault } from '@/store/constant'
 
 const Box = (props) => {
-  const { zan, wen, song, silver, day, box } = props.box
+  let { zan, wen, song, silver, day, box } = props.box
 
   const totalValue = () => {
     return (zan + wen + song) * 100 + silver
