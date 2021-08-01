@@ -1,4 +1,5 @@
-import { sleep, i } from '@/utils/util'
+import { sleep } from '@/utils/util'
+import { qe } from './libs/boxLibs'
 
 class Box {
   constructor({ setting }) {
@@ -35,7 +36,11 @@ class Box {
       c.forEach(element => {
         e && o.push(qe(element))
       })
-      console.log(this.dataMap(o))
+      this.handlePendingBoxes(this.dataMap([e]))
+    })
+    sc.subscribe('tsboxb', e => {
+      console.log("tsboxb", e)
+      this.handlePendingBoxes(this.dataMap([e]))
     })
   }
 
@@ -46,6 +51,12 @@ class Box {
         this.state = "gee_testing"
         this.setDocTitle()
         if (this.setting.pickSound) this.ding()
+      } else {
+        if (e.award_type) {
+          window.postMessage({ source: 'treasure_res', data: e }, '*')
+        }
+        this.state = "free"
+        this.handlePendingBoxes()
       }
       return e
     })
@@ -70,14 +81,21 @@ class Box {
     })
   }
 
-  handlePendingBoxes() {
-    if (this.state != "free" || this.pendingBox.length == 0) return
-    let data = this.pendingBox.shift()
-    let time = Math.max(1e3 * data.surplusTime - Date.now() + 200, 1000)
-    this.state = "wait"
-    setTimeout(() => {
-      this.handleTimeupBox(data)
-    }, time)
+  pushPendingBox(e) {
+    this.checkBox(e) && this.pendingBox.push(e)
+  }
+
+  handlePendingBoxes(e, t = true) {
+    if (e && e instanceof Array ? e.forEach(e => this.pushPendingBox(e)) : e && this.pushPendingBox(e), t) {
+      if (this.pendingBox.length != 0 && "free" === this.state) {
+        this.state = "wait"
+        let data = this.pendingBox.shift()
+        let time = Math.max(1e3 * data.surplusTime - Date.now() + 200, 1500)
+        setTimeout(() => {
+          this.handleTimeupBox(data)
+        }, time)
+      }
+    }
   }
 
   async setDocTitle() {
