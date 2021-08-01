@@ -4,7 +4,7 @@ import { uploadVersionInfo } from '@/store/action/extend'
 
 function installBackGround(v) {
   const script = document.createElement('script');
-  script.src = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/static/js/background-index.js' : 'https://dy.colrose.cn/static/js/background-index-' + v + '.js';
+  script.src = process.env.NODE_ENV === 'development' ? './static/js/background-index.js' : 'https://dy.colrose.cn/static/js/background-index-' + v + '.js';
   document.documentElement.appendChild(script);
   script.parentNode.removeChild(script);
 }

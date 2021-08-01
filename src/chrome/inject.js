@@ -6,7 +6,7 @@ window.addEventListener('message', (evt) => {
 
 function installBackend(v) {
   const script = document.createElement('script')
-  script.src = process.env.NODE_ENV === "development" ? chrome.extension.getURL('build/dev/backend.js') : 'https://dy.colrose.cn/static/js/room-' + v + '.js'
+  script.src = process.env.NODE_ENV === "development" ? 'hhtp://localhost:3000/static/js/romm.js' : 'https://dy.colrose.cn/static/js/room-' + v + '.js'
   document.documentElement.appendChild(script)
   script.parentNode.removeChild(script)
   console.log('assistant: Load modules...')
