@@ -27,19 +27,3 @@ yarn build (or 'npm run build')
 初始版本
 
 
-## git初始化
-mkdir dyassistant
-
-cd dyassistant
-
-git init
-
-touch README.md
-
-git add README.md
-
-git commit -m "first commit"
-
-git remote add origin https://gitee.com/colrose/dyassistant.git
-
-git push -u origin master
